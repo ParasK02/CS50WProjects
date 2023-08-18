@@ -1,0 +1,37 @@
+{% extends "encyclopedia/layout.html" %}
+
+
+{% block title %}
+    Create Page
+{% endblock %}
+
+{% block body %}    
+    <h1>Create Page</h1>
+    <form action="{% url 'create' %}" method="post" class="form">
+        {% csrf_token %}
+        {% if error is True%}
+        <p>Whoops, that page already exists, please create a new entry or edit the existing one!</p>
+        {% endif%}
+        <div class="form-group">
+            {% if title is None%}
+            <input type="text" placeholder="Title" name="title">
+            {% else %}
+            <input type="text"  name="title" value={{title}}>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {% if content is None %}
+            <textarea name="content" id="" cols="30" rows="10"></textarea>
+            {% else %}
+            <textarea name="content" id="" cols="30" rows="10">{{content}}</textarea>
+            {% endif%}
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+
+
+
+
+{% endblock %}
