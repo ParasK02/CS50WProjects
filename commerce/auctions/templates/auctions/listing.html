@@ -1,0 +1,168 @@
+
+{% extends "auctions/layout.html" %}
+{% block body %}
+{{block.super}}
+    {% load static %}  
+    <style>
+        img{
+            width: 70%;
+            height: auto;
+        }
+        li{
+            text-transform: capitalize;
+        }
+        ul{
+            font-size: 20px;
+        }
+        p{
+            font-size: 18px;
+        }
+        
+        label{
+            font-size: 24px;
+        }
+        .bidForm {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        gap: 10px;
+    }
+
+    .submitButton {
+        width: fit-content;
+        height: 40px;
+        border-radius: 8px;
+        border: 2px solid #4CAF50;
+        
+        background-color: #4CAF50;
+        color: whitesmoke;
+    }
+
+    .closeButton {
+        width: fit-content;
+        height: 40px;
+        border-radius: 8px;
+        border: 2px solid #f44336;
+    
+        background-color: #f44336;
+        color: whitesmoke;
+        text-align: center;
+        padding: 6px;
+
+    }
+    .comment-section {
+            width: 100%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 0 auto;
+            padding-top: 10px;
+        }
+
+    /* Comment box */
+    .comment {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    /* User information */
+    .user-info {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    /* Date */
+    .date {
+        font-size: 12px;
+        color: #777;
+        margin-bottom: 5px;
+    }
+
+    /* Comment text */
+    .comment-text {
+        font-size: 16px;
+    }
+
+    </style>
+    <div>
+        <div style="display: flex; flex-direction: row; gap: 20px;">
+            <h3>{{listing.title}}</h3>
+            {% if user.is_authenticated %}
+                {% if user.username == listing.user.username%}
+                        <!-- <a class="closeButton" href="{% url 'closeAuction' listing.id %}">Close Listing</a> -->
+                        <form action="{% url 'closeAuction' listing.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="closeButton">Close Listing</button>
+                        </form>
+                {% endif %}
+
+                {% if listing not in user.watchlist.all%}
+                    <form action="{% url 'watchList' listing.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="submitButton">Add To WatchList</button>
+                    </form>
+                    
+                {% else %}
+                    <form action="{% url 'removeWatchList' listing.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="closeButton">Remove From WatchList</button>
+                    </form>
+                    
+                {% endif %}
+            {% endif %}
+                
+              
+            
+        </div>
+        
+        <h1>${{listing.currentPrice}}</h1>
+        <img src={{listing.imageURL}} alt="ListingImage">
+        {% if listing.isActive and user.is_authenticated %}
+            <form  class="bidForm" action="{% url 'addBid' listing.id %}" method="post">
+                {% csrf_token %}
+                <label for="bidAmount">Place Bid Below: </label>
+                <input type="number" id = "bidAmount" name="bidAmount" placeholder="Bid Amount" required style="padding: 6px;">
+                <button class="submitButton" type="submit">Place Bid</button>
+            </form>
+        {%else%}
+            <h3>Auction Closed</h3>
+            {% if user.username == listing.winner%}
+            <h4 style="color: #4CAF50;">You are the winner!</h4>
+            {% else %}
+            <h4 style="color: #4CAF50;">{{listing.winner}} is the winner!</h4>
+            {%endif%}
+        {%endif%}
+
+        <h3 style="margin-top: 10px;">Description:</h3>
+        <p>{{listing.description|linebreaksbr}}</p>
+        <h3>More Info:</h3>
+        <ul>
+            <li>Created By: {{listing.user.username}}</li>
+            <li>Category: {{listing.category}}</li>
+            <li>Date Created: {{listing.createdOn}}</li>
+
+        </ul>
+        
+        <h3>Comments: </h3>
+        {% if user.is_authenticated %}
+            <form class="bidForm" action="{% url 'addComment' listing.id %}" method="post" style="padding-bottom: 10px;">
+                {% csrf_token %}
+                <label for="comment">Add Comment Below: </label>
+                <input type="text" id="comment" name="comment" placeholder="Comment Here" required style="padding: 6px;">
+                <button class="submitButton" type="submit">Add Comment</button>
+            </form>
+        {%endif%}
+        {% for comment in comments%}
+            <div class="comment-section">
+                <div class="comment">
+                    <div class="user-info">{{comment.user}}</div>
+                    <div class="date">{{comment.datePosted}}</div>
+                    <div class="comment-text"> {{comment.commentText}}</div>
+                </div>
+            </div>
+        {%endfor%}
+    </div>
+{% endblock %}

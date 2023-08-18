@@ -1,0 +1,51 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1>Active Listings</h2>
+    {% for auction in auctions %}
+    <div style="display: flex; align-items: center; gap: 20px; border-radius: 10px; border: 1px solid #ccc; padding: 10px">
+        {% if auction.isActive %}
+            <div>
+                {% if auction.imageURL is None %}
+                <img src="https://propertywiselaunceston.com.au/wp-content/themes/property-wise/images/no-image.png"
+                    alt="product_image" style="max-width: 500px; height: auto;">
+                {% else %}
+                <img src="{{ auction.imageURL }}" alt="product_image" style="max-width: 500px; height: auto;">
+                {% endif %}
+
+            </div>
+            <div style="margin-left: 100px;">
+                <a href="{% url 'viewListing' auction.id %}" style="font-size: 26px; font-weight: bold;" onmouseover="this.style.cursor='pointer'">{{ auction.title }}</a>
+                <h3>Price: ${{ auction.currentPrice }}</h3>
+                <p>{{ auction.description }}</p>
+                <p>{{ auction.createdOn }}</p>
+                
+                
+            </div>
+        {% else %}
+            <div>
+                {% if auction.imageURL is None %}
+                <img src="https://propertywiselaunceston.com.au/wp-content/themes/property-wise/images/no-image.png"
+                    alt="product_image" style="max-width: 500px; height: auto;">
+                {% else %}
+                <img src="{{ auction.imageURL }}" alt="product_image" style="max-width: 500px; height: auto;">
+                {% endif %}
+            </div>
+            <div style="margin-left: 100px;">
+                <a href="{% url 'viewListing' auction.id %}" style="font-size: 26px; font-weight: bold;"
+                    onmouseover="this.style.cursor='pointer'">{{ auction.title }}</a>
+                <h3>Auction Closed!</h3>
+                <p>{{ auction.description }}</p>
+                <p>{{ auction.createdOn }}</p>
+                {% if user.username == auction.winner%}
+                <h4 style="color: #4CAF50;">You are the winner!</h4>
+                {% else %}
+                <h4 style="color: #4CAF50;">{{auction.winner}} is the winner!</h4>
+                {%endif%}
+            
+            </div>
+        {%endif%}
+    </div>
+    {% endfor %}
+
+{% endblock %}

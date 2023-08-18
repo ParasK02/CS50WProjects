@@ -1,0 +1,101 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    input[type="url"],
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    input[type="number"],
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    button {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<form action="{% url 'create' %}" method="post">
+    {% csrf_token %}
+    
+    <label for="title">Title:</label>
+    <input type="text" name="title" placeholder="911 GT3RS">
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="4" placeholder="2023 Porsche 911 GT3RS"></textarea>
+    
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" placeholder="79.99"required>
+    
+    <label for="imageURL">Image URL:</label>
+    <input type="url" id="imageURL" name="imageURL" placeholder="https://www.example.com/image.jpg">
+    
+    <label for="category">Category:</label>
+    <select id="category" name="category" required>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+        <option value="cars">Cars</option>
+        <option value="home">Home</option>
+        <option value="toys">Toys</option>
+        <option value="sports">Sports</option>
+        <option value="music">Music</option>
+        <option value="health">Health & Beauty</option>
+        <option value="watches">Jewelery & Watches</option>
+        <option value="misc">Miscellaneous</option>
+    </select>
+    <button type="submit">Submit</button>
+ 
+</form>
+{% endblock %}

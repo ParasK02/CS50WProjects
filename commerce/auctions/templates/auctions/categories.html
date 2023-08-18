@@ -1,0 +1,93 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <style>
+        select {
+        width: 60%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    .submitButton {
+        width: fit-content;
+        height: 40px;
+        border-radius: 8px;
+        border: 2px solid #4CAF50;
+        
+        background-color: #4CAF50;
+        color: whitesmoke;
+    }
+    label{
+        font-weight: bold;
+        font-size: 20px;
+    }
+    </style>
+    <h2>Categories</h2>
+    <form action="{% url 'categories' %}" method="post">
+        {% csrf_token %}
+        <label for="category">Category:</label>
+
+        <select id="category" name="category"  required>
+            <option value="electronics"  >Electronics</option>
+            <option value="clothing">Clothing</option>
+            <option value="cars">Cars</option>
+            <option value="home">Home</option>
+            <option value="toys">Toys</option>
+            <option value="sports">Sports</option>
+            <option value="music">Music</option>
+            <option value="health">Health & Beauty</option>
+            <option value="watches">Jewelery & Watches</option>
+            <option value="misc">Miscellaneous</option>
+        </select>
+        <button class="submitButton" type="submit">Submit</button>
+    
+    </form>
+    {%for auction in auctions%}
+        {% if auction.isActive %}
+        <div style="display: flex; align-items: center; gap: 20px; border-radius: 10px; border: 1px solid #ccc; padding: 10px">
+            <div>
+                {% if auction.imageURL is None %}
+                <img src="https://propertywiselaunceston.com.au/wp-content/themes/property-wise/images/no-image.png"
+                    alt="product_image" style="max-width: 500px; height: auto;">
+                {% else %}
+                <img src="{{ auction.imageURL }}" alt="product_image" style="max-width: 500px; height: auto;">
+                {% endif %}
+            
+            </div>
+            <div style="margin-left: 100px;">
+                <a href="{% url 'viewListing' auction.id %}" style="font-size: 26px; font-weight: bold;"
+                    onmouseover="this.style.cursor='pointer'">{{ auction.title }}</a>
+                <h3>Price: ${{ auction.currentPrice }}</h3>
+                <p>{{ auction.description }}</p>
+                <p>{{ auction.createdOn }}</p>
+            
+            
+            </div>
+            {% else %}
+            <div>
+                {% if auction.imageURL is None %}
+                <img src="https://propertywiselaunceston.com.au/wp-content/themes/property-wise/images/no-image.png"
+                    alt="product_image" style="max-width: 500px; height: auto;">
+                {% else %}
+                <img src="{{ auction.imageURL }}" alt="product_image" style="max-width: 500px; height: auto;">
+                {% endif %}
+            </div>
+            <div style="margin-left: 100px;">
+                <a href="{% url 'viewListing' auction.id %}" style="font-size: 26px; font-weight: bold;"
+                    onmouseover="this.style.cursor='pointer'">{{ auction.title }}</a>
+                <h3>Auction Closed!</h3>
+                <p>{{ auction.description }}</p>
+                <p>{{ auction.createdOn }}</p>
+                {% if user.username == auction.winner%}
+                <h4 style="color: #4CAF50;">You are the winner!</h4>
+                {% else %}
+                <h4 style="color: #4CAF50;">{{auction.winner}} is the winner!</h4>
+                {%endif%}
+            
+            </div>
+            {%endif%}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

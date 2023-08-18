@@ -1,0 +1,28 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h1>My Watchlist</h1>
+{% if watchlist %}
+{% for watch in watchlist %}
+<div style="display: flex; align-items: center; gap: 20px; border-radius: 10px; border: 1px solid #ccc; padding: 10px">
+    <div>
+        {% if watch.imageURL %}
+        <img src="{{ watch.imageURL }}" alt="product_image" style="max-width: 500px; height: auto;">
+        {% else %}
+        <img src="https://propertywiselaunceston.com.au/wp-content/themes/property-wise/images/no-image.png"
+            alt="product_image" style="max-width: 500px; height: auto;">
+        {% endif %}
+    </div>
+    <div style="margin-left: 100px;">
+        <a href="{% url 'viewListing' watch.id %}" style="font-size: 26px; font-weight: bold;"
+            onmouseover="this.style.cursor='pointer'">{{ watch.title }}</a>
+        <h3>Price: ${{ watch.currentPrice }}</h3>
+        <p>{{ watch.description }}</p>
+        <p>{{ watch.createdOn }}</p>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p>Your watchlist is empty.</p>
+{% endif %}
+{% endblock %}
