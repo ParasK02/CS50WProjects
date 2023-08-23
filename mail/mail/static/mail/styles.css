@@ -1,0 +1,68 @@
+textarea {
+    min-height: 400px;
+}
+/* Container for each email item */
+.email-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.read{
+    background-color: lightgray;
+}
+.unread{
+    background-color: white;
+    font-weight: bold;
+}
+
+/* Styling for sender and subject */
+.email-sender {
+    font-weight: bold;
+    color: #333;
+}
+
+.email-subject {
+    
+    color: #666;
+}
+
+/* Hover effect */
+.email-item:hover {
+    background-color: #e9e9e9;
+    cursor: pointer;
+}
+.email-detail-container{
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+}
+.email-detail-container h3{
+    margin-top: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.email-timestamp,
+.email-sender-view,
+.email-recipients {
+  margin-bottom: 5px;
+}
+
+.bold-label {
+  font-weight: bold;
+}
+
+.email-body {
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+.email-actions{
+    border-radius: 4px;
+    justify-content: center;
+    border-color: lightblue;
+    color: lightblue;
+}
