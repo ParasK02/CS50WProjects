@@ -1,0 +1,184 @@
+/* Basic styling for the post container */
+.post-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+/* Style for the post header */
+.post-header {
+    display: flex;
+    margin-bottom: 5px;
+   
+}
+
+/* Style for the username */
+.post-user {
+    font-weight: bold;
+}
+
+/* Style for the date */
+.post-date {
+    margin-left: 5px;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* Style for the post text */
+.post-text {
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+
+
+/* Profile page styling */
+/* Overall container */
+.profile-container {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+/* Profile image and follow button */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+    
+    
+}
+
+.profile-image img {
+    width: 150px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.follow-button {
+    padding: 8px 20px;
+    background-color: white;
+    color: #1da1f2;
+    border: 2px solid #1da1f2;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.unfollow-button{
+    padding: 8px 20px;
+    background-color: #1da1f2;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Username section */
+.username {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Follower section */
+.follow-stats {
+    display: flex;
+    margin-top: 10px;
+}
+
+.follow-stats span {
+    margin-right: 20px;
+    font-size: 16px;
+    color: #657786;
+}
+/* like button */
+/* .like-button{
+    background-color: white;
+    color: red;
+    cursor: pointer;
+    border-radius: 20px;
+    border: none;
+} */
+
+.like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+    color: #e74c3c;
+}
+
+/* Filled state (red heart) */
+.like-button.liked {
+    color: #e74c3c;
+    /* Filled color */
+}
+
+/* Edit Buttons */
+.edit-button{
+    border: none;
+    background-color: white;
+    color: #1da1f2;
+
+}
+.edit-container {
+    display: flex;
+    justify-content: space-between;
+    /* Positions elements at opposite ends horizontally */
+    align-items: center;
+    /* Vertically aligns elements */
+}
+
+.editable-textarea {
+    flex-grow: 1;
+    padding: 5px;
+    /* Allows the textarea to expand and take up remaining space */
+}
+
+.save-button {
+    margin-left: 10px;
+    /* Adds some space between the textarea and the button */
+}
+
+/* Pagination */
+/* Style the container for pagination links */
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* Style individual pagination links */
+.step-links a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 2px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style the current page indicator */
+.current {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #1da1f2;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 4px;
+}
+
+/* Style the previous and next buttons */
+.step-links a:hover {
+    background-color: #ddd;
+}
